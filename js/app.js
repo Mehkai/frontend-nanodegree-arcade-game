@@ -1,12 +1,16 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(speed, x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    //this.number = number;
+    this.speed = speed;
+    this.x = x;
+    this.y = y;
+    this._index = 0;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -14,22 +18,59 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-}
+    this._index += this.speed*dt;
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
+
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
+var Player = function(x,y) {
+    //Variables applied to each instance goes here
+    this.x = x;
+    this.y = y;
+    // The image/sprite for our player character
+    this.sprite = 'images/char-boy.png';
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+Player.prototype = Object.create(Enemy.prototype);
 
+Player.prototype.handleInput = function(key){
+     if(key === 'left'){
+        player.x -= 83;
+    }
+     if(key === 'right'){
+        player.x += 83;
+    }
+     if(key === 'up'){
+        player.y -= 101;
+    }
+     if(key === 'down'){
+        player.y += 101;
+    }
+
+};
+
+var allEnemies = [];
+var bug1 = new Enemy(50, 50, 50);
+allEnemies.push(bug1);
+var bug2 = new Enemy(100, 100, 100);
+allEnemies.push(bug2);
+var bug3 = new Enemy(200, 200, 200);
+allEnemies.push(bug3);
+
+
+var playerStartX = 5*83/2;
+var playerStartY = 606 - 200;
+var player = new Player(playerStartX,playerStartY);
 
 
 // This listens for key presses and sends the keys to your
