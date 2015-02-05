@@ -18,7 +18,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this._index += this.speed*dt;
+    //createEnemy();
+    var gameTime = 0;
+     gameTime += dt;
+    this.x += this.speed * dt;
+    if(Math.random() < 1 - Math.pow(0.993, gameTime)) {
+        createEnemy();
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -37,11 +43,22 @@ var Player = function(x,y) {
     // The image/sprite for our player character
     this.sprite = 'images/char-boy.png';
 };
+Player.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    //this._index += this.speed*dt;
+};
+
+Player.prototype.render = function() {
+
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-Player.prototype = Object.create(Enemy.prototype);
+//Player.prototype = Object.create(Enemy.prototype);
 
 Player.prototype.handleInput = function(key){
      if(key === 'left'){
@@ -60,12 +77,44 @@ Player.prototype.handleInput = function(key){
 };
 
 var allEnemies = [];
-var bug1 = new Enemy(50, 50, 50);
-allEnemies.push(bug1);
-var bug2 = new Enemy(100, 100, 100);
-allEnemies.push(bug2);
-var bug3 = new Enemy(200, 200, 200);
-allEnemies.push(bug3);
+
+function speedRan(){
+    var ran = Math.random();
+    if (ran < 0.25){
+        return ran * 2000;
+    }else if (ran < 0.50){
+        return ran * 300;
+    } else if (ran < 0.75){
+        return ran * 100;
+    }
+
+}
+
+
+
+
+function createEnemy () {
+     for (var i = 0; i < 3; ++i){
+          var sp = speedRan();
+          var x = 0;
+          var y = 0;
+          if(i === 0){
+             y = (i+0.55)*101;
+          }
+          if(i===1){
+             y = (i+0.40)*101;
+          }
+          if(i===2){
+             y = (i+0.25)*101;
+          }
+          var bug = new Enemy(sp,x,y);
+          console.log("Created Bug");
+          allEnemies.push(bug);
+     }
+}
+
+createEnemy();
+
 
 
 var playerStartX = 5*83/2;
