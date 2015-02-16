@@ -83,8 +83,7 @@ Player.prototype.update = function(dt) {
 Player.prototype.render = function() {
 
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    this.y = constrain(this.y, 0, height-canvas.height/6);
-    this.x = constrain(this.x, 0+canvas.width/6, width-canvas.width/6);
+    
 };
 
 // Now instantiate your objects.
@@ -93,17 +92,18 @@ Player.prototype.render = function() {
 //Player.prototype = Object.create(Enemy.prototype);
 
 Player.prototype.handleInput = function(key){
-     if(key === 'left'){
+     if(key === 'left' && player.x >= canvas.width/5){
         player.x -= canvas.width/5;
     }
-     if(key === 'right'){
+     if(key === 'right' && player.x <= canvas.width -canvas.width/2.5){
         player.x += canvas.width/5;
     }
-     if(key === 'up'){
+     if(key === 'up' && player.y >= canvas.height/7){
         player.y -= canvas.height/7;
     }
-     if(key === 'down'){
+     if(key === 'down' && player.y < canvas.height - canvas.height/2){
         player.y += canvas.height/7;
+        //console.log(player.y)
     }
 
 };
@@ -123,7 +123,7 @@ function shuffle(array) {
     array[m] = array[i];
     array[i] = t;
   }
-  console.log(array[0]);
+  //console.log(array[0]);
   return array[0];
 
 }
@@ -140,7 +140,7 @@ var bug = {
   y: canvas.height/2.75, //enemyRow[shuffle(enemyRow)],
   img: 'images/enemy-bug.png'
 };
-console.log("Created Bug");
+//console.log("Created Bug");
 //allEnemies.push(bug);
 
 
@@ -158,7 +158,7 @@ while(allEnemies.length < creature.number){
 };
 
 creatureCreator(bug);
-console.log(allEnemies);
+//console.log(allEnemies);
 
 
 
