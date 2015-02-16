@@ -1,4 +1,41 @@
-//grab the canvas details
+//create scenes
+var Scenes = function(scene) {
+  //Variables that apply to the different scenes in the game, start menu, pause etc...
+  this.img = scene.img;
+  this.sceneCount = scene.sceneCount;
+
+
+};
+
+Scenes.prototype.render = function() {
+
+  ctx.drawImage(Resources.get(this.img), this.x, this.y);
+
+};
+
+//Create buttons
+var Buttons = function(button) {
+  //variables for the buttons in the menus etc...
+  this.x = button.x;
+  this.y = button.y;
+  this.width = button.width;
+  this.height = button.height;
+  this.cornerRadius = button.cornerRadius;
+  this.img = button.img;
+  this.clr = button.clr;
+  this.txt = button.txt;
+
+};
+
+//draw buttons
+Buttons.prototype.render = function() {
+
+  ctx.lineJoin = "round";
+  ctx.lineWidth = this.cornerRadius;
+  ctx.strokeRect(this.x+(this.cornerRadius/2), this.y + (cornerRadius/2), this.width-this.cornerRadius, this.height-this.cornerRadius);
+  ctx.fillRect(this.x+(this.cornerRadius/2), this.y + (cornerRadius/2), this.width-this.cornerRadius, this.height-this.cornerRadius);
+};
+
 
 
 
@@ -65,12 +102,13 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x,y) {
+var Player = function(x,y, life) {
     //Variables applied to each instance goes here
     this.x = x;
     this.y = y;
     // The image/sprite for our player character
     this.sprite = 'images/char-boy.png';
+    this.life = life;
 };
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
@@ -78,6 +116,12 @@ Player.prototype.update = function(dt) {
     // all computers.
 
     //this.x += this.speed*dt;
+    if(player.y <= canvas.height/20){
+      player.life--;
+      player.x = playerStartX;
+      player.y = playerStartY;
+
+    }
 };
 
 Player.prototype.render = function() {
@@ -98,7 +142,7 @@ Player.prototype.handleInput = function(key){
      if(key === 'right' && player.x <= canvas.width -canvas.width/2.5){
         player.x += canvas.width/5;
     }
-     if(key === 'up' && player.y >= canvas.height/7){
+     if(key === 'up' /*&& player.y >= canvas.height/7*/){
         player.y -= canvas.height/7;
     }
      if(key === 'down' && player.y < canvas.height - canvas.height/2){
@@ -107,6 +151,12 @@ Player.prototype.handleInput = function(key){
     }
 
 };
+
+//Begin creation of game elements****************************************************
+
+//create the scenes menu, lvl and others
+
+
 
 // create a randomizer for the bug position y and bug speed. Use Fisher-Yates shuffle
 function shuffle(array) {
@@ -171,7 +221,7 @@ creatureCreator(bug);
 
 var playerStartX = canvas.width/2.5;
 var playerStartY = canvas.height - canvas.height/2.75;
-var player = new Player(playerStartX,playerStartY);
+var player = new Player(playerStartX,playerStartY, 5);
 
 
 // This listens for key presses and sends the keys to your
