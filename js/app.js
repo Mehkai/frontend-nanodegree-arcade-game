@@ -2,12 +2,13 @@
 var Scenes = function(order) {
   //Variables that apply to the different scenes in the game, start menu, pause etc...
   this.order = order;
+  this.xMove = canvas.height/6;
+  this.yMove = canvas.height/6;
 
 
 };
 
 Scenes.prototype.render = function() {
-  var xMove = canvas.height/6;
   var rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
@@ -34,25 +35,25 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
                 
                 //Starting Menu House Scene
-                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * xMove, 2 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * xMove, 2.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * xMove, 2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * this.xMove, 2 * this.yMove);
+                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * this.xMove, 2.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * this.xMove, 2 * this.yMove);
                 
-                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * canvas.height/6, 0.5 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * canvas.height/6, 0.5 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * this.xMove, 0.5 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * this.xMove, 0.5 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * this.xMove, 0.5 * this.yMove);
                 
-                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * canvas.height/6, 1.2 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * canvas.height/6, 1.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * canvas.height/6, 1.2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * this.xMove, 1.2 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * this.xMove, 1.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * this.xMove, 1.2 * this.yMove);
 
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * canvas.height/6, 2.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * canvas.height/6, 2.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * this.xMove, 2.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * this.xMove, 2.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * this.xMove, 2.1 * this.yMove);
 
-                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * canvas.height/6, 3.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * canvas.height/6, 3.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * canvas.height/6, 3.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * this.xMove, 3.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * this.xMove, 3.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * this.xMove, 3.1 * this.yMove);
             }
         
         }
@@ -71,27 +72,30 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
                 
                 //Starting Menu House Scene
-                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * canvas.height/6, 2 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * canvas.height/6, 2.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * canvas.height/6, 2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * this.xMove, 2 * this.yMove);
+                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * this.xMove, 2.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * this.xMove, 2 * this.yMove);
                 
-                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * canvas.height/6, 0.5 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * canvas.height/6, 0.5 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * this.xMove, 0.5 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * this.xMove, 0.5 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * this.xMove, 0.5 * this.yMove);
                 
-                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * canvas.height/6, 1.2 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * canvas.height/6, 1.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * canvas.height/6, 1.2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * this.xMove, 1.2 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * this.xMove, 1.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * this.xMove, 1.2 * this.yMove);
 
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * canvas.height/6, 2.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * canvas.height/6, 2.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * this.xMove, 2.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * this.xMove, 2.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * this.xMove, 2.1 * this.yMove);
 
-                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * canvas.height/6, 3.1 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * canvas.height/6, 3.3 * canvas.height/6);
-                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * canvas.height/6, 3.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * this.xMove, 3.1 * this.yMove);
+                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * this.xMove, 3.3 * this.yMove);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * this.xMove, 3.1 * this.yMove);
             }
         
+        }
+        if(this.xMove >= 450) {
+          this.xMove = 600;
         }
  }
  if(scene.order === 3){
@@ -162,8 +166,8 @@ if(allEnemies.length < this.number) {
 
 Enemy.prototype.checkCollision = function(){
       if(scene.order === 2){
-        if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
-
+        if(((this.x+30) >= scene.xMove && this.x <= (scene.xMove+40) && (this.y >= scene.yMove && this.y <= (scene.yMove+40))) ) {
+          scene.xMove = this.x;
 
         }
 
@@ -192,7 +196,7 @@ Enemy.prototype.update = function(dt) {
     }
     if(scene.order === 2){
       this.x += this.speed * dt;
-      if(this.x >= 400){
+      if(this.x >= 500){
         var loc = allEnemies.indexOf(this);
         allEnemies.splice(loc, 1);
       }
