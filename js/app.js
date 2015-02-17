@@ -96,9 +96,10 @@ Scenes.prototype.render = function() {
         }
         if(this.xMove >= 450) {
           this.xMove = 600;
+          scene.order = 3;
         }
  }
- if(scene.order === 3){
+ if(scene.order >= 3){
           for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
                 /* The drawImage function of the canvas' context element
@@ -111,6 +112,10 @@ Scenes.prototype.render = function() {
                 
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
             }
+          }
+          if(scene.order === 4) {
+            player.x = 0;
+            ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * this.xMove, 2 * this.yMove);
           }
  }
 
@@ -166,7 +171,7 @@ if(allEnemies.length < this.number) {
 
 Enemy.prototype.checkCollision = function(){
       if(scene.order === 2){
-        if(((this.x+30) >= scene.xMove && this.x <= (scene.xMove+40) && (this.y >= scene.yMove && this.y <= (scene.yMove+40))) ) {
+        if(((this.x+30) >= scene.xMove && this.x <= (scene.xMove+40) /*&& (this.y >= scene.yMove && this.y <= (scene.yMove+40))*/) ) {
           scene.xMove = this.x;
 
         }
@@ -194,7 +199,7 @@ Enemy.prototype.update = function(dt) {
     if(scene.order === 1){
 
     }
-    if(scene.order === 2){
+    if(scene.order >= 2){
       this.x += this.speed * dt;
       if(this.x >= 500){
         var loc = allEnemies.indexOf(this);
@@ -214,7 +219,7 @@ Enemy.prototype.render = function() {
   if(scene.order === 1 ) {
 
   }
-  if(scene.order === 2)
+  if(scene.order >= 2)
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
