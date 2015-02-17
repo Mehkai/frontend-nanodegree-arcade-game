@@ -109,38 +109,84 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
-            row, col;
-
-        /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
-         */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
-            }
-        }
 
 
+
+        // var rowImages = [
+        //         'images/water-block.png',   // Top row is water
+        //         'images/stone-block.png',   // Row 1 of 3 of stone
+        //         'images/stone-block.png',   // Row 2 of 3 of stone
+        //         'images/stone-block.png',   // Row 3 of 3 of stone
+        //         'images/grass-block.png',   // Row 1 of 2 of grass
+        //         'images/dirt-block.png'    // Row 2 of 2 of grass
+        //     ],
+        //     numRows = 6,
+        //     numCols = 5,
+        //     row, col;
+        //     // var rowImages = [
+        //     //     'images/water-block.png',   // Top row is water
+        //     //     'images/stone-block.png',   // Row 1 of 3 of stone
+        //     //     'images/stone-block.png',   // Row 2 of 3 of stone
+        //     //     'images/stone-block.png',   // Row 3 of 3 of stone
+        //     //     'images/grass-block.png',   // Row 1 of 2 of grass
+        //     //     'images/grass-block.png'    // Row 2 of 2 of grass
+        //     // ],
+        //     // numRows = 6,
+        //     // numCols = 5,
+        //     // row, col;
+
+        // /* Loop through the number of rows and columns we've defined above
+        //  * and, using the rowImages array, draw the correct image for that
+        //  * portion of the "grid"
+        //  */
+        // for (row = 0; row < numRows; row++) {
+        //     for (col = 0; col < numCols; col++) {
+        //         /* The drawImage function of the canvas' context element
+        //          * requires 3 parameters: the image to draw, the x coordinate
+        //          * to start drawing and the y coordinate to start drawing.
+        //          * We're using our Resources helpers to refer to our images
+        //          * so that we get the benefits of caching these images, since
+        //          * we're using them over and over.
+        //          */
+                
+        //         ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+                
+        //         //Starting Menu House Scene
+        //         ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * canvas.height/6, 2 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * canvas.height/6, 2.3 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * canvas.height/6, 2 * canvas.height/6);
+                
+        //         ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * canvas.height/6, 0.5 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Roof North.png'),  2 * canvas.height/6, 0.5 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * canvas.height/6, 0.5 * canvas.height/6);
+                
+        //         ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * canvas.height/6, 1.2 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Roof South.png'),  2 * canvas.height/6, 1.3 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * canvas.height/6, 1.2 * canvas.height/6);
+
+        //         ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * canvas.height/6, 2.1 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * canvas.height/6, 2.1 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * canvas.height/6, 2.1 * canvas.height/6);
+
+        //         ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * canvas.height/6, 3.1 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * canvas.height/6, 3.3 * canvas.height/6);
+        //         ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * canvas.height/6, 3.1 * canvas.height/6);
+        //     }
+        
+        // }
+
+        renderScene();
         renderEntities();
     }
+
+    /*This function is called by the render function and is called each game tick.
+     *It's purpose is to then call on the scene render function to draw the 
+     *background image to create the different levels and menus in the game within
+     *app.js.
+     */
+     function renderScene() {
+        scene.render();
+     }
 
     /* This function is called by the render function and is called on each game
      * tick. It's purpose is to then call the render functions you have defined
@@ -173,8 +219,41 @@ var Engine = (function(global) {
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
+        'images/dirt-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Roof East.png',
+        'images/Roof North East.png',
+        'images/Roof North.png',
+        'images/Roof North West.png',
+        'images/Roof South.png',
+        'images/Roof South East.png',
+        'images/Roof South West.png',
+        'images/Roof West.png',
+        'images/Wood Block.png',
+        'images/Window Tall.png',
+        'images/Wall Block.png',
+        'images/Wall Block Tall.png',
+        'images/Door Tall Closed.png',
+        'images/Door Tall Open.png',
+        'images/Gem Orange.png',
+        'images/Gem Green.png',
+        'images/Gem Blue.png',
+        'images/Heart.png',
+        'images/Key.png',
+        'images/Rock.png',
+        'images/Selector.png',
+        'images/Star.png',
+        'images/Chest Open.png',
+        'images/Chest Lid.png',
+        'images/Chest Closed.png',
+        'images/Shadow South.png',
+        'images/Ramp South.png',
+        'images/Tree Short.png',
+        'images/Tree Tall.png',
+        'images/Tree Ugly.png',
+        'images/Brown Block.png'
+
     ]);
     Resources.onReady(init);
 

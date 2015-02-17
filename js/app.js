@@ -1,15 +1,114 @@
 //create scenes
-var Scenes = function(scene) {
+var Scenes = function(order) {
   //Variables that apply to the different scenes in the game, start menu, pause etc...
-  this.img = scene.img;
-  this.sceneCount = scene.sceneCount;
+  this.order = order;
 
 
 };
 
 Scenes.prototype.render = function() {
+  var xMove = canvas.height/6;
+  var rowImages = [
+                'images/water-block.png',   // Top row is water
+                'images/stone-block.png',   // Row 1 of 3 of stone
+                'images/stone-block.png',   // Row 2 of 3 of stone
+                'images/stone-block.png',   // Row 3 of 3 of stone
+                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/dirt-block.png'    // Row 2 of 2 of grass
+            ],
+            numRows = 6,
+            numCols = 5,
+            row, col;
 
-  ctx.drawImage(Resources.get(this.img), this.x, this.y);
+  if(this.order === 1) {
+          for (row = 0; row < numRows; row++) {
+            for (col = 0; col < numCols; col++) {
+                /* The drawImage function of the canvas' context element
+                 * requires 3 parameters: the image to draw, the x coordinate
+                 * to start drawing and the y coordinate to start drawing.
+                 * We're using our Resources helpers to refer to our images
+                 * so that we get the benefits of caching these images, since
+                 * we're using them over and over.
+                 */
+                
+                ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+                
+                //Starting Menu House Scene
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * xMove, 2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * xMove, 2.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * xMove, 2 * canvas.height/6);
+                
+                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * canvas.height/6, 0.5 * canvas.height/6);
+                
+                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * canvas.height/6, 1.2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * canvas.height/6, 1.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * canvas.height/6, 1.2 * canvas.height/6);
+
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * canvas.height/6, 2.1 * canvas.height/6);
+
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * canvas.height/6, 3.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * canvas.height/6, 3.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * canvas.height/6, 3.1 * canvas.height/6);
+            }
+        
+        }
+ }
+ if(this.order === 2) {
+          for (row = 0; row < numRows; row++) {
+            for (col = 0; col < numCols; col++) {
+                /* The drawImage function of the canvas' context element
+                 * requires 3 parameters: the image to draw, the x coordinate
+                 * to start drawing and the y coordinate to start drawing.
+                 * We're using our Resources helpers to refer to our images
+                 * so that we get the benefits of caching these images, since
+                 * we're using them over and over.
+                 */
+                
+                ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+                
+                //Starting Menu House Scene
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * canvas.height/6, 2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  2 * canvas.height/6, 2.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Window Tall.png'),  1 * canvas.height/6, 2 * canvas.height/6);
+                
+                ctx.drawImage(Resources.get('images/Roof North East.png'),  3 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North.png'),  2 * canvas.height/6, 0.5 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof North West.png'),  1 * canvas.height/6, 0.5 * canvas.height/6);
+                
+                ctx.drawImage(Resources.get('images/Roof South East.png'),  3 * canvas.height/6, 1.2 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South.png'),  2 * canvas.height/6, 1.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Roof South West.png'),  1 * canvas.height/6, 1.2 * canvas.height/6);
+
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  3 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  2 * canvas.height/6, 2.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Shadow South.png'),  1 * canvas.height/6, 2.1 * canvas.height/6);
+
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  3 * canvas.height/6, 3.1 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * canvas.height/6, 3.3 * canvas.height/6);
+                ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * canvas.height/6, 3.1 * canvas.height/6);
+            }
+        
+        }
+ }
+ if(scene.order === 3){
+          for (row = 0; row < numRows; row++) {
+            for (col = 0; col < numCols; col++) {
+                /* The drawImage function of the canvas' context element
+                 * requires 3 parameters: the image to draw, the x coordinate
+                 * to start drawing and the y coordinate to start drawing.
+                 * We're using our Resources helpers to refer to our images
+                 * so that we get the benefits of caching these images, since
+                 * we're using them over and over.
+                 */
+                
+                ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+            }
+          }
+ }
 
 };
 
@@ -62,12 +161,20 @@ if(allEnemies.length < this.number) {
 };
 
 Enemy.prototype.checkCollision = function(){
+      if(scene.order === 2){
+        if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
 
-if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
-  player.life--;
-  player.x = playerStartX;
-  player.y = playerStartY;
-}
+
+        }
+
+      }
+      if(scene.order === 3) {
+        if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
+          player.life--;
+          player.x = playerStartX;
+          player.y = playerStartY;
+        }
+      }
 };
 
 // Update the enemy's position, required method for game
@@ -79,23 +186,31 @@ Enemy.prototype.update = function(dt) {
     
     var gameTime = 0;
     gameTime += dt;
-    this.x += this.speed * dt;
-    if(this.x >= 400){
-      var loc = allEnemies.indexOf(this);
-      allEnemies.splice(loc, 1);
-    }
-    for(var i=0; i < allEnemies.length; i++){
-      allEnemies[i].checkCount();
-      allEnemies[i].checkCollision();
-    }
+    
+    if(scene.order === 1){
 
+    }
+    if(scene.order === 2){
+      this.x += this.speed * dt;
+      if(this.x >= 400){
+        var loc = allEnemies.indexOf(this);
+        allEnemies.splice(loc, 1);
+      }
+      for(var i=0; i < allEnemies.length; i++){
+        allEnemies[i].checkCount();
+        allEnemies[i].checkCollision();
+      }
+    }
 
 
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
+  if(scene.order === 1 ) {
 
+  }
+  if(scene.order === 2)
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -122,6 +237,13 @@ Player.prototype.update = function(dt) {
       player.y = playerStartY;
 
     }
+    if(scene.order === 1) {
+      if(player.y <= canvas.height/2) {
+        scene.order = 2;
+        console.log(scene.order);
+      }
+    }
+
 };
 
 Player.prototype.render = function() {
@@ -156,7 +278,7 @@ Player.prototype.handleInput = function(key){
 
 //create the scenes menu, lvl and others
 
-
+var scene = new Scenes(1);
 
 // create a randomizer for the bug position y and bug speed. Use Fisher-Yates shuffle
 function shuffle(array) {
@@ -208,7 +330,7 @@ while(allEnemies.length < creature.number){
 };
 
 creatureCreator(bug);
-//console.log(allEnemies);
+
 
 
 
