@@ -8,6 +8,13 @@ var Scenes = function(order) {
 
 };
 
+Scenes.prototype.checkEdgeCollision = function(){
+
+    if(player.x >= 450){
+      player.x = 0;
+    }
+};
+
 Scenes.prototype.render = function() {
   var rowImages = [
                 'images/water-block.png',   // Top row is water
@@ -113,10 +120,8 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
             }
           }
-          if(scene.order === 4) {
-            player.x = 0;
-            ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * this.xMove, 2 * this.yMove);
-          }
+            scene.checkEdgeCollision();
+            ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * canvas.height/6, 2 * canvas.width/6);
  }
 
 };
@@ -177,7 +182,7 @@ Enemy.prototype.checkCollision = function(){
         }
 
       }
-      if(scene.order === 3) {
+      if(scene.order >= 3) {
         if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
           player.life--;
           player.x = playerStartX;
@@ -252,6 +257,11 @@ Player.prototype.update = function(dt) {
         console.log(scene.order);
       }
     }
+    if(scene.order >= 3) {
+      if(player.x >= 450) {
+        scene.order = 4;
+      }
+    }
 
 };
 
@@ -270,7 +280,7 @@ Player.prototype.handleInput = function(key){
      if(key === 'left' && player.x >= canvas.width/5){
         player.x -= canvas.width/5;
     }
-     if(key === 'right' && player.x <= canvas.width -canvas.width/2.5){
+     if(key === 'right' /*&& player.x <= canvas.width -canvas.width/3*/){
         player.x += canvas.width/5;
     }
      if(key === 'up' /*&& player.y >= canvas.height/7*/){
