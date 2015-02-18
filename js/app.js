@@ -10,28 +10,6 @@ var Scenes = function(order) {
 
 //Generate random house piece on map for player to collect
 Scenes.prototype.isHousePiece = function() {
-var houseWindow = ctx.drawImage(Resources.get('images/Window Front.png'),  3 * canvas.height/6, 2 * canvas.width/6);
-var door = ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  3 * canvas.height/6, 2 * canvas.width/6);
-var roofCorner = ctx.drawImage(Resources.get('images/Roof South West.png'),  3 * canvas.height/6, 2 * canvas.width/6);
-var roofMiddle = ctx.drawImage(Resources.get('images/Roof South.png'),  3 * canvas.height/6, 2 * canvas.width/6);
-
-
-
-var houseParts = [
-   houseWindow,
-   door,
-   houseWindow,
-   roofCorner,
-   roofMiddle,
-   roofCorner,
-   roofMiddle,
-   roofCorner,
-   roofCorner
-
-];
-
-shuffle(houseParts);
-
 
 
 };
@@ -151,9 +129,12 @@ Scenes.prototype.render = function() {
             }
           }
             scene.checkEdgeCollision();
-            if(scene.order >= 4) {
-              scene.isHousePiece();
-              
+            if(pieceScenes.order >= 4) {
+              //console.log(houseParts[0]);
+              ctx.drawImage(Resources.get(houseParts[0]),  3 * pieceScenes.xMove, 2 * pieceScenes.yMove);
+              player.checkCollision();
+              console.log('piece cor' + pieceScenes.xMove + ',' + pieceScenes.yMove);
+              console.log('player cor' + player.y + ',' + player.x);
             }
  }
 
@@ -271,7 +252,17 @@ var Player = function(x,y, life) {
     // The image/sprite for our player character
     this.sprite = 'images/char-boy.png';
     this.life = life;
+    this.piecesCollected = 0;
 };
+
+Player.prototype.checkCollision = function () {
+    if(((this.x+30) >= pieceScenes.xMove && this.x <= (pieceScenes.xMove+30)) && (this.y >= pieceScenes.yMove && this.y <= (pieceScenes.yMove+30))){
+        pieceScenes.xMove = 600;
+        player.piecesCollected += 1;
+    }
+
+};
+
 Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -292,7 +283,8 @@ Player.prototype.update = function(dt) {
     }
     if(scene.order >= 3) {
       if(player.x >= 450) {
-        scene.order = 4;
+        scene.order += 1;
+        pieceScenes.order += 1;
         console.log(scene.order);
       }
     }
@@ -332,6 +324,30 @@ Player.prototype.handleInput = function(key){
 //create the scenes menu, lvl and others
 
 var scene = new Scenes(1);
+var houseWindow = 'images/Window Front.png';
+var door = 'images/Door Tall Closed.png';
+var roofCorner = 'images/Roof South West.png';
+var roofMiddle = 'images/Roof South.png';
+
+
+
+var houseParts = [
+   houseWindow,
+   door,
+   houseWindow,
+   roofCorner,
+   roofMiddle,
+   roofCorner,
+   roofMiddle,
+   roofCorner,
+   roofCorner
+
+];
+
+  shuffle(houseParts);
+
+var pieceScenes = new Scenes (3);
+
 
 // create a randomizer for the bug position y and bug speed. Use Fisher-Yates shuffle
 function shuffle(array) {
