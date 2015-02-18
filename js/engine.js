@@ -252,7 +252,8 @@ var Engine = (function(global) {
         'images/Tree Short.png',
         'images/Tree Tall.png',
         'images/Tree Ugly.png',
-        'images/Brown Block.png'
+        'images/Brown Block.png',
+        'images/Window Front.png'
 
     ]);
     Resources.onReady(init);

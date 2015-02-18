@@ -8,6 +8,36 @@ var Scenes = function(order) {
 
 };
 
+//Generate random house piece on map for player to collect
+Scenes.prototype.isHousePiece = function() {
+var houseWindow = ctx.drawImage(Resources.get('images/Window Front.png'),  3 * canvas.height/6, 2 * canvas.width/6);
+var door = ctx.drawImage(Resources.get('images/Door Tall Closed.png'),  3 * canvas.height/6, 2 * canvas.width/6);
+var roofCorner = ctx.drawImage(Resources.get('images/Roof South West.png'),  3 * canvas.height/6, 2 * canvas.width/6);
+var roofMiddle = ctx.drawImage(Resources.get('images/Roof South.png'),  3 * canvas.height/6, 2 * canvas.width/6);
+
+
+
+var houseParts = [
+   houseWindow,
+   door,
+   houseWindow,
+   roofCorner,
+   roofMiddle,
+   roofCorner,
+   roofMiddle,
+   roofCorner,
+   roofCorner
+
+];
+
+shuffle(houseParts);
+
+
+
+};
+
+
+//Check for edge collision with right screen edge for moving forward in the game
 Scenes.prototype.checkEdgeCollision = function(){
 
     if(player.x >= 450){
@@ -121,7 +151,10 @@ Scenes.prototype.render = function() {
             }
           }
             scene.checkEdgeCollision();
-            ctx.drawImage(Resources.get('images/Window Tall.png'),  3 * canvas.height/6, 2 * canvas.width/6);
+            if(scene.order >= 4) {
+              scene.isHousePiece();
+              
+            }
  }
 
 };
@@ -260,6 +293,7 @@ Player.prototype.update = function(dt) {
     if(scene.order >= 3) {
       if(player.x >= 450) {
         scene.order = 4;
+        console.log(scene.order);
       }
     }
 
