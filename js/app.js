@@ -70,6 +70,16 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * this.xMove, 3.3 * this.yMove);
                 ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * this.xMove, 3.1 * this.yMove);
             }
+
+            ctx.drawImage(Resources.get(firstSpeechBubble.img), player.x + 75, player.y-100);
+            ctx.fillText(firstSpeechBubble.text, player.x + 90, player.y );
+            ctx.fillText(firstSpeechBubble.text2, player.x + 90, player.y + 10);
+            ctx.fillText(firstSpeechBubble.text3, player.x + 90, player.y + 20);
+            ctx.fillText(firstSpeechBubble.text4, player.x + 90, player.y + 30);
+            ctx.fillText(firstSpeechBubble.text4, player.x + 90, player.y + 30);
+            ctx.fillText(firstSpeechBubble.text5, player.x + 90, player.y + 40);
+            ctx.fillText(firstSpeechBubble.text5, player.x + 90, player.y + 40);
+           
         
         }
  }
@@ -107,6 +117,13 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get('images/Ramp South.png'),  2 * this.xMove, 3.3 * this.yMove);
                 ctx.drawImage(Resources.get('images/Tree Short.png'),  1 * this.xMove, 3.1 * this.yMove);
             }
+
+            ctx.drawImage(Resources.get(secondSpeechBubble.img), player.x + 75, player.y);
+            ctx.fillText(secondSpeechBubble.text, player.x + 90, player.y + 100);
+            ctx.fillText(secondSpeechBubble.text2, player.x + 90, player.y + 110);
+            ctx.fillText(secondSpeechBubble.text3, player.x + 90, player.y + 120);
+            ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
+            ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
         
         }
         if(this.xMove >= 450) {
@@ -137,6 +154,23 @@ Scenes.prototype.render = function() {
               console.log('player cor' + player.y + ',' + player.x);
             }
  }
+
+};
+
+//create speech Bubbles
+var SpeechBubbles = function(bubble){
+  //variables for speach bubbles
+  this.x = bubble.x;
+  this.y = bubble.y;
+  this.img = 'images/SpeechBubble.png';
+  bubbleHeight = 50;
+  this.xText = this.x + 15;
+  this.yText = this.y + 100 ;
+  this.text = bubble.text;
+  this.text2 = bubble.text2;
+  this.text3 = bubble.text3;
+  this.text4 = bubble.text4;
+  this.text5 = bubble.text5;
 
 };
 
@@ -349,6 +383,7 @@ var houseParts = [
 var pieceScenes = new Scenes (3);
 
 
+
 // create a randomizer for the bug position y and bug speed. Use Fisher-Yates shuffle
 function shuffle(array) {
   var m = array.length, t, i;
@@ -413,6 +448,31 @@ creatureCreator(bug);
 var playerStartX = canvas.width/2.5;
 var playerStartY = canvas.height - canvas.height/2.75;
 var player = new Player(playerStartX,playerStartY, 5);
+
+
+//Create speech bubbles for player interaction
+var fBubble = {
+  x : player.x + 75,
+  y : player.y - 110,
+  text : "Finally I am home,",
+  text2 : "Guess I will head",
+  text3 : "inside.",
+  text4 : "Press Up Arrow",
+  text5 : "to move Up",
+
+};
+var sBubble = {
+  x : player.x + 75,
+  y : player.y - 110,
+  text : "Oh No!!!",
+  text2 : "They are stealing",
+  text3 : "My House!",
+  text4 : "I need te get",
+  text5 : "it Back!!!",
+};
+
+var firstSpeechBubble = new SpeechBubbles(fBubble);
+var secondSpeechBubble = new SpeechBubbles(sBubble);
 
 
 // This listens for key presses and sends the keys to your

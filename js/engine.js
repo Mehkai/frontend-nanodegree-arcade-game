@@ -253,7 +253,8 @@ var Engine = (function(global) {
         'images/Tree Tall.png',
         'images/Tree Ugly.png',
         'images/Brown Block.png',
-        'images/Window Front.png'
+        'images/Window Front.png',
+        'images/SpeechBubble.png'
 
     ]);
     Resources.onReady(init);
