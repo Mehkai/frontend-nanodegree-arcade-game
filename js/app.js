@@ -124,6 +124,8 @@ Scenes.prototype.render = function() {
             ctx.fillText(secondSpeechBubble.text3, player.x + 90, player.y + 120);
             ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
             ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
+            ctx.fillText(secondSpeechBubble.text5, player.x + 90, player.y + 140);
+            ctx.fillText(secondSpeechBubble.text5, player.x + 90, player.y + 140);
         
         }
         if(this.xMove >= 450) {
@@ -146,13 +148,19 @@ Scenes.prototype.render = function() {
             }
           }
             scene.checkEdgeCollision();
-            if(pieceScenes.order >= 4) {
+            if(pieceScenes.order === 4) {
               //console.log(houseParts[0]);
-              ctx.drawImage(Resources.get(houseParts[0]),  3 * pieceScenes.xMove, 2 * pieceScenes.yMove);
+              ctx.drawImage(Resources.get(houseParts[0]),  xPosHousePiece[0], yPosHousePiece[0]);
               player.checkCollision();
-              console.log('piece cor' + pieceScenes.xMove + ',' + pieceScenes.yMove);
-              console.log('player cor' + player.y + ',' + player.x);
+              
             }
+            if(pieceScenes.order === 5) {
+              //console.log(houseParts[0]);
+              ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
+              player.checkCollision();
+              
+            }
+
  }
 
 };
@@ -290,9 +298,12 @@ var Player = function(x,y, life) {
 };
 
 Player.prototype.checkCollision = function () {
-    if(((this.x+30) >= pieceScenes.xMove && this.x <= (pieceScenes.xMove+30)) && (this.y >= pieceScenes.yMove && this.y <= (pieceScenes.yMove+30))){
+    if(((this.x) >= xPosHousePiece[0] && this.x <= (xPosHousePiece[0])) && (this.y >= yPosHousePiece[0] && this.y <= (yPosHousePiece[0]+50))){
+        pieceScenes.order = 5;
         pieceScenes.xMove = 600;
         player.piecesCollected += 1;
+        //houseParts.splice(0,1);
+        //shuffle(houseParts);
     }
 
 };
@@ -378,7 +389,12 @@ var houseParts = [
 
 ];
 
-  shuffle(houseParts);
+var xPosHousePiece = [ canvas.height/6, canvas.height/6*2, canvas.height/6*3, canvas.height/6*4];
+var yPosHousePiece = [ canvas.height/7, canvas.height/7*2, canvas.height/7*3, canvas.height/7*4];
+
+shuffle(xPosHousePiece);
+shuffle(yPosHousePiece);
+shuffle(houseParts);
 
 var pieceScenes = new Scenes (3);
 
