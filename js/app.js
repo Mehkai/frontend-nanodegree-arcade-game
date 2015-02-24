@@ -147,19 +147,23 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
             }
           }
-            scene.checkEdgeCollision();
+           
             if(pieceScenes.order === 4) {
               //console.log(houseParts[0]);
               ctx.drawImage(Resources.get(houseParts[0]),  xPosHousePiece[0], yPosHousePiece[0]);
-              player.checkCollision();
+              player.checkCollision(0);
               
             }
             if(pieceScenes.order === 5) {
               //console.log(houseParts[0]);
               ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
-              player.checkCollision();
+              console.log(yPosHousePiece[1]);
+              player.checkCollision(1);
               
             }
+
+             scene.checkEdgeCollision();
+             console.log(player.x + ', ' + player.y);
 
  }
 
@@ -297,11 +301,14 @@ var Player = function(x,y, life) {
     this.piecesCollected = 0;
 };
 
-Player.prototype.checkCollision = function () {
-    if(((this.x) >= xPosHousePiece[0] && this.x <= (xPosHousePiece[0])) && (this.y >= yPosHousePiece[0] && this.y <= (yPosHousePiece[0]+50))){
-        pieceScenes.order = 5;
-        pieceScenes.xMove = 600;
+Player.prototype.checkCollision = function (num) {
+    if(((this.x) >= xPosHousePiece[num] && this.x <= (xPosHousePiece[num] +50)) && (this.y >= yPosHousePiece[num] && this.y <= (yPosHousePiece[num]+50))){
+        pieceScenes.order += 1;
+        xPosHousePiece[num] = 600;
         player.piecesCollected += 1;
+        console.log('piece pos y ' + yPosHousePiece[num] + ', ' + 'plus50 ' + (yPosHousePiece[num] + 50));
+        console.log('piece pos x ' + xPosHousePiece[num] + ', ' + 'plus50 ' + (xPosHousePiece[num] + 50));
+        console.log('ply x ' + player.x + ', ' + 'ply y ' + player.y);
         //houseParts.splice(0,1);
         //shuffle(houseParts);
     }
@@ -389,8 +396,8 @@ var houseParts = [
 
 ];
 
-var xPosHousePiece = [ canvas.height/6, canvas.height/6*2, canvas.height/6*3, canvas.height/6*4];
-var yPosHousePiece = [ canvas.height/7, canvas.height/7*2, canvas.height/7*3, canvas.height/7*4];
+var xPosHousePiece = [ 101, 202, 303, 404];
+var yPosHousePiece = [ 86, 174, 260, 385];
 
 shuffle(xPosHousePiece);
 shuffle(yPosHousePiece);
