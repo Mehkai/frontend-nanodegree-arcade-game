@@ -132,6 +132,10 @@ Scenes.prototype.render = function() {
           this.xMove = 600;
           scene.order = 3;
         }
+        ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
+        ctx.fillText(lifeBar.item, lifeBar.xCounter + 50, lifeBar.yCounter);
+        ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
+        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 100, housePieceCollection.yCounter);
  }
  if(scene.order >= 3){
           for (row = 0; row < numRows; row++) {
@@ -145,8 +149,17 @@ Scenes.prototype.render = function() {
                  */
                 
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+
             }
+            ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
+            ctx.fillText(lifeBar.item, lifeBar.xCounter + 20, lifeBar.yCounter);
+            ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
+            ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 50, housePieceCollection.yCounter);
           }
+         // if(houseParts < houseParts.length) {
+
+
+          //}
            
             if(pieceScenes.order === 4) {
               //console.log(houseParts[0]);
@@ -157,13 +170,20 @@ Scenes.prototype.render = function() {
             if(pieceScenes.order === 5) {
               //console.log(houseParts[0]);
               ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
-              console.log(yPosHousePiece[1]);
+              // console.log(yPosHousePiece[1]);
               player.checkCollision(1);
+              
+            }
+            if(pieceScenes.order === 6) {
+              //console.log(houseParts[0]);
+              ctx.drawImage(Resources.get(houseParts[2]),  xPosHousePiece[2], yPosHousePiece[2]);
+              // console.log(yPosHousePiece[1]);
+              player.checkCollision(2);
               
             }
 
              scene.checkEdgeCollision();
-             console.log(player.x + ', ' + player.y);
+             //console.log(player.x + ', ' + player.y);
 
  }
 
@@ -371,6 +391,19 @@ Player.prototype.handleInput = function(key){
 
 };
 
+//make house piece and life counters
+
+var Counters = function(title, total, x, y) {
+  this.title = title;
+  this.item = total;
+  this.total = total;
+  this.font = 'bold 20pt';
+  this.xCounter = x;
+  this.yCounter = y;
+  this.array = [];
+
+};
+
 //Begin creation of game elements****************************************************
 
 //create the scenes menu, lvl and others
@@ -496,6 +529,15 @@ var sBubble = {
 
 var firstSpeechBubble = new SpeechBubbles(fBubble);
 var secondSpeechBubble = new SpeechBubbles(sBubble);
+
+//create life text bar
+
+var lifeBar = new Counters(  'Health', 5, 20, 30);
+
+
+//create house piece bar
+
+var housePieceCollection = new Counters(  'House Parts Missing', 8, 303, 30);
 
 
 // This listens for key presses and sends the keys to your
