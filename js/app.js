@@ -145,9 +145,11 @@ Scenes.prototype.render = function() {
           ctx.fillStyle = 'white';
           ctx.fillRect(lifeBar.xCounter + 155 - box, lifeBar.yCounter - 22, 20, 30);
         }
+        ctx.fillStyle = 'white';
+        ctx.fillRect(housePieceCollection.xCounter + 200, housePieceCollection.yCounter - 22, 20, 30);
         ctx.fillStyle = 'black';
         ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
-        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
+        ctx.fillText(housePieceCollection.total, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
  }
  if(scene.order >= 3){
           for (row = 0; row < numRows; row++) {
@@ -175,9 +177,11 @@ Scenes.prototype.render = function() {
           ctx.fillStyle = 'white';
           ctx.fillRect(lifeBar.xCounter + 155 - box2, lifeBar.yCounter - 22, 20, 30);
         }
+        ctx.fillStyle = 'white';
+        ctx.fillRect(housePieceCollection.xCounter + 200, housePieceCollection.yCounter - 22, 20, 30);
         ctx.fillStyle = 'black';
         ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
-        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
+        ctx.fillText(housePieceCollection.total, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
           }
          // if(houseParts < houseParts.length) {
 
@@ -350,6 +354,7 @@ Player.prototype.checkCollision = function (num) {
         pieceScenes.order += 1;
         xPosHousePiece[num] = 600;
         player.piecesCollected += 1;
+        housePieceCollection.total -= 1;
         console.log('piece pos y ' + yPosHousePiece[num] + ', ' + 'plus50 ' + (yPosHousePiece[num] + 50));
         console.log('piece pos x ' + xPosHousePiece[num] + ', ' + 'plus50 ' + (xPosHousePiece[num] + 50));
         console.log('ply x ' + player.x + ', ' + 'ply y ' + player.y);
