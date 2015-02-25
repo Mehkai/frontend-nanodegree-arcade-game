@@ -86,6 +86,15 @@ Scenes.prototype.render = function() {
             for (var heart = 0; heart < lifeBar.total*20; heart+=20) {
            ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
            }
+           // ctx.fillStyle = 'red';
+           //  ctx.fillRect(0, 86, 20, 30);
+           //  ctx.fillRect(0, 174, 20, 30);
+           //  ctx.fillRect(0, 260, 20, 30);
+           //  ctx.fillRect(0, 385, 20, 30);
+           //  ctx.fillRect(101, 86, 20, 30);
+           //  ctx.fillRect(101, 174, 20, 30);
+           //  ctx.fillRect(101, 260, 20, 30);
+           //  ctx.fillRect(101, 385, 20, 30);
         
         }
  }
@@ -133,6 +142,7 @@ Scenes.prototype.render = function() {
             ctx.fillText(secondSpeechBubble.text4, player.x + 85, player.y + 130);
             ctx.fillText(secondSpeechBubble.text5, player.x + 85, player.y + 140);
             ctx.fillText(secondSpeechBubble.text5, player.x + 85, player.y + 140);
+            
         
         }
         if(this.xMove >= 450) {
@@ -192,26 +202,27 @@ Scenes.prototype.render = function() {
 
           //}
            
-            if(pieceScenes.order === 4) {
-              //console.log(houseParts[0]);
-              ctx.drawImage(Resources.get(houseParts[0]),  xPosHousePiece[0], yPosHousePiece[0]);
-              player.checkCollision(0);
+            if(pieceScenes.order >= 1) {
+              console.log(houseParts[pieceScenes.order-1]);
+              ctx.drawImage(Resources.get(houseParts[pieceScenes.order - 1]),  xPosHousePiece[pieceScenes.order - 1], yPosHousePiece[pieceScenes.order - 1]);
+              player.checkCollision(pieceScenes.order - 1);
+
               
             }
-            if(pieceScenes.order === 5) {
-              //console.log(houseParts[0]);
-              ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
-              // console.log(yPosHousePiece[1]);
-              player.checkCollision(1);
+            // if(pieceScenes.order === 5) {
+            //   //console.log(houseParts[0]);
+            //   ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
+            //   // console.log(yPosHousePiece[1]);
+            //   player.checkCollision(1);
               
-            }
-            if(pieceScenes.order === 6) {
-              //console.log(houseParts[0]);
-              ctx.drawImage(Resources.get(houseParts[2]),  xPosHousePiece[2], yPosHousePiece[2]);
-              // console.log(yPosHousePiece[1]);
-              player.checkCollision(2);
+            // }
+            // if(pieceScenes.order === 6) {
+            //   //console.log(houseParts[0]);
+            //   ctx.drawImage(Resources.get(houseParts[2]),  xPosHousePiece[2], yPosHousePiece[2]);
+            //   // console.log(yPosHousePiece[1]);
+            //   player.checkCollision(2);
               
-            }
+            //}
 
              scene.checkEdgeCollision();
              //console.log(player.x + ', ' + player.y);
@@ -389,7 +400,7 @@ Player.prototype.update = function(dt) {
     if(scene.order >= 3) {
       if(player.x >= 450) {
         scene.order += 1;
-        pieceScenes.order += 1;
+        pieceScenes.order = 1;
         console.log(scene.order);
       }
     }
@@ -462,14 +473,14 @@ var houseParts = [
 
 ];
 
-var xPosHousePiece = [ 101, 202, 303, 404];
-var yPosHousePiece = [ 86, 174, 260, 385];
+var xPosHousePiece = [ 0, 101, 202, 303, 404, 0, 101, 202, 303, 404, 0, 101, 202, 303, 404, 0, 101, 202, 303, 404];
+var yPosHousePiece = [ 86, 174, 260, 86, 174, 260, 86, 174, 260, 86, 174, 260, 86, 174, 260,];
 
 shuffle(xPosHousePiece);
 shuffle(yPosHousePiece);
 shuffle(houseParts);
 
-var pieceScenes = new Scenes (3);
+var pieceScenes = new Scenes (0);
 
 
 
