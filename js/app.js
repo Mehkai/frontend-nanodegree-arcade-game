@@ -80,7 +80,12 @@ Scenes.prototype.render = function() {
             ctx.fillText(firstSpeechBubble.text4, player.x + 85, player.y + 30);
             ctx.fillText(firstSpeechBubble.text5, player.x + 85, player.y + 40);
             ctx.fillText(firstSpeechBubble.text5, player.x + 85, player.y + 40);
-           
+            ctx.fillStyle = 'black';
+            ctx.font = lifeBar.font;
+            ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
+            for (var heart = 0; heart < lifeBar.total*20; heart+=20) {
+           ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
+           }
         
         }
  }
@@ -138,8 +143,8 @@ Scenes.prototype.render = function() {
         ctx.font = lifeBar.font;
         ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
         //ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
-        for (var heart = 0; heart < lifeBar.total*20; heart+=20) {
-          ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
+        for (var heart1 = 0; heart1 < lifeBar.total*20; heart1+=20) {
+          ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart1, lifeBar.yCounter - 22, 20, 30);
         }
         for (var box = 0; box < lifeBar.item*20; box+=20) {
           ctx.fillStyle = 'white';
@@ -173,7 +178,6 @@ Scenes.prototype.render = function() {
           ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart2, lifeBar.yCounter - 22, 20, 30);
         }
         for (var box2 = 0; box2 < lifeBar.item*20; box2+=20) {
-          console.log(lifeBar.item);
           ctx.fillStyle = 'white';
           ctx.fillRect(lifeBar.xCounter + 155 - box2, lifeBar.yCounter - 22, 20, 30);
         }
@@ -426,7 +430,7 @@ var Counters = function(title, total, x, y) {
   this.title = title;
   this.item = 0;
   this.total = total;
-  this.font = 'bold 15pt sans';
+  this.font = 'normal 15pt arial';
   this.xCounter = x;
   this.yCounter = y;
   this.array = [];
