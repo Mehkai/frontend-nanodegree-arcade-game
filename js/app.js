@@ -72,13 +72,14 @@ Scenes.prototype.render = function() {
             }
 
             ctx.drawImage(Resources.get(firstSpeechBubble.img), player.x + 75, player.y-100);
-            ctx.fillText(firstSpeechBubble.text, player.x + 90, player.y );
-            ctx.fillText(firstSpeechBubble.text2, player.x + 90, player.y + 10);
-            ctx.fillText(firstSpeechBubble.text3, player.x + 90, player.y + 20);
-            ctx.fillText(firstSpeechBubble.text4, player.x + 90, player.y + 30);
-            ctx.fillText(firstSpeechBubble.text4, player.x + 90, player.y + 30);
-            ctx.fillText(firstSpeechBubble.text5, player.x + 90, player.y + 40);
-            ctx.fillText(firstSpeechBubble.text5, player.x + 90, player.y + 40);
+            ctx.font = 'normal 9pt sans';
+            ctx.fillText(firstSpeechBubble.text, player.x + 85, player.y );
+            ctx.fillText(firstSpeechBubble.text2, player.x + 85, player.y + 10);
+            ctx.fillText(firstSpeechBubble.text3, player.x + 85, player.y + 20);
+            ctx.fillText(firstSpeechBubble.text4, player.x + 85, player.y + 30);
+            ctx.fillText(firstSpeechBubble.text4, player.x + 85, player.y + 30);
+            ctx.fillText(firstSpeechBubble.text5, player.x + 85, player.y + 40);
+            ctx.fillText(firstSpeechBubble.text5, player.x + 85, player.y + 40);
            
         
         }
@@ -119,23 +120,25 @@ Scenes.prototype.render = function() {
             }
 
             ctx.drawImage(Resources.get(secondSpeechBubble.img), player.x + 75, player.y);
-            ctx.fillText(secondSpeechBubble.text, player.x + 90, player.y + 100);
-            ctx.fillText(secondSpeechBubble.text2, player.x + 90, player.y + 110);
-            ctx.fillText(secondSpeechBubble.text3, player.x + 90, player.y + 120);
-            ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
-            ctx.fillText(secondSpeechBubble.text4, player.x + 90, player.y + 130);
-            ctx.fillText(secondSpeechBubble.text5, player.x + 90, player.y + 140);
-            ctx.fillText(secondSpeechBubble.text5, player.x + 90, player.y + 140);
+            ctx.font = 'normal 9pt sans';
+            ctx.fillText(secondSpeechBubble.text, player.x + 85, player.y + 100);
+            ctx.fillText(secondSpeechBubble.text2, player.x + 85, player.y + 110);
+            ctx.fillText(secondSpeechBubble.text3, player.x + 85, player.y + 120);
+            ctx.fillText(secondSpeechBubble.text4, player.x + 85, player.y + 130);
+            ctx.fillText(secondSpeechBubble.text4, player.x + 85, player.y + 130);
+            ctx.fillText(secondSpeechBubble.text5, player.x + 85, player.y + 140);
+            ctx.fillText(secondSpeechBubble.text5, player.x + 85, player.y + 140);
         
         }
         if(this.xMove >= 450) {
           this.xMove = 600;
           scene.order = 3;
         }
+        ctx.font = lifeBar.font;
         ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
-        ctx.fillText(lifeBar.item, lifeBar.xCounter + 50, lifeBar.yCounter);
+        ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
         ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
-        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 100, housePieceCollection.yCounter);
+        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
  }
  if(scene.order >= 3){
           for (row = 0; row < numRows; row++) {
@@ -151,10 +154,11 @@ Scenes.prototype.render = function() {
                 ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
 
             }
-            ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
-            ctx.fillText(lifeBar.item, lifeBar.xCounter + 20, lifeBar.yCounter);
-            ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
-            ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 50, housePieceCollection.yCounter);
+        ctx.font = lifeBar.font;
+        ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
+        ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
+        ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
+        ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
           }
          // if(houseParts < houseParts.length) {
 
@@ -264,7 +268,7 @@ Enemy.prototype.checkCollision = function(){
       }
       if(scene.order >= 3) {
         if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
-          player.life--;
+          lifeBar.item -= 1;
           player.x = playerStartX;
           player.y = playerStartY;
         }
@@ -397,7 +401,7 @@ var Counters = function(title, total, x, y) {
   this.title = title;
   this.item = total;
   this.total = total;
-  this.font = 'bold 20pt';
+  this.font = 'bold 15pt sans';
   this.xCounter = x;
   this.yCounter = y;
   this.array = [];
@@ -537,7 +541,7 @@ var lifeBar = new Counters(  'Health', 5, 20, 30);
 
 //create house piece bar
 
-var housePieceCollection = new Counters(  'House Parts Missing', 8, 303, 30);
+var housePieceCollection = new Counters(  'House Parts Missing', 8, 252, 30);
 
 
 // This listens for key presses and sends the keys to your
