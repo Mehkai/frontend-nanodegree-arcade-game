@@ -254,7 +254,8 @@ var Engine = (function(global) {
         'images/Tree Ugly.png',
         'images/Brown Block.png',
         'images/Window Front.png',
-        'images/SpeechBubble.png'
+        'images/SpeechBubble.png',
+        'images/Heart.png'
 
     ]);
     Resources.onReady(init);

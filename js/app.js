@@ -134,9 +134,18 @@ Scenes.prototype.render = function() {
           this.xMove = 600;
           scene.order = 3;
         }
+        ctx.fillStyle = 'black';
         ctx.font = lifeBar.font;
         ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
-        ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
+        //ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
+        for (var heart = 0; heart < lifeBar.total*20; heart+=20) {
+          ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
+        }
+        for (var box = 0; box < lifeBar.item*20; box+=20) {
+          ctx.fillStyle = 'white';
+          ctx.fillRect(lifeBar.xCounter + 155 - box, lifeBar.yCounter - 22, 20, 30);
+        }
+        ctx.fillStyle = 'black';
         ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
         ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
  }
@@ -155,8 +164,18 @@ Scenes.prototype.render = function() {
 
             }
         ctx.font = lifeBar.font;
+        ctx.fillStyle = 'black';
         ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
-        ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
+        //ctx.fillText(lifeBar.item, lifeBar.xCounter + 100, lifeBar.yCounter);
+        for (var heart2 = 0; heart2 < lifeBar.total*20; heart2+=20) {
+          ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart2, lifeBar.yCounter - 22, 20, 30);
+        }
+        for (var box2 = 0; box2 < lifeBar.item*20; box2+=20) {
+          console.log(lifeBar.item);
+          ctx.fillStyle = 'white';
+          ctx.fillRect(lifeBar.xCounter + 155 - box2, lifeBar.yCounter - 22, 20, 30);
+        }
+        ctx.fillStyle = 'black';
         ctx.fillText(housePieceCollection.title, housePieceCollection.xCounter, housePieceCollection.yCounter);
         ctx.fillText(housePieceCollection.item, housePieceCollection.xCounter + 200, housePieceCollection.yCounter);
           }
@@ -268,7 +287,8 @@ Enemy.prototype.checkCollision = function(){
       }
       if(scene.order >= 3) {
         if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
-          lifeBar.item -= 1;
+          lifeBar.item++;
+          console.log(lifeBar.total);
           player.x = playerStartX;
           player.y = playerStartY;
         }
@@ -399,7 +419,7 @@ Player.prototype.handleInput = function(key){
 
 var Counters = function(title, total, x, y) {
   this.title = title;
-  this.item = total;
+  this.item = 0;
   this.total = total;
   this.font = 'bold 15pt sans';
   this.xCounter = x;
