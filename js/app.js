@@ -4,13 +4,28 @@ var Scenes = function(order) {
   this.order = order;
   this.xMove = canvas.height/6;
   this.yMove = canvas.height/6;
+  this.images = [];
 
 
 };
 
-//Generate random house piece on map for player to collect
-Scenes.prototype.isHousePiece = function() {
-
+Scenes.prototype.drawPlayArea = function() {
+  var rowImages = [
+                'images/water-block.png',   // Top row is water
+                'images/stone-block.png',   // Row 1 of 3 of stone
+                'images/stone-block.png',   // Row 2 of 3 of stone
+                'images/stone-block.png',   // Row 3 of 3 of stone
+                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/dirt-block.png'    // Row 2 of 2 of grass
+            ],
+            numRows = 6,
+            numCols = 5,
+            row, col;
+  for (row = 0; row < numRows; row++) {
+      for (col = 0; col < numCols; col++) {
+         ctx.drawImage(Resources.get(rowImages[row]), col * canvas.height/6, row * canvas.width/6);
+       }
+  }
 
 };
 
@@ -35,6 +50,7 @@ Scenes.prototype.render = function() {
             numRows = 6,
             numCols = 5,
             row, col;
+
 
   if(this.order === 1) {
           for (row = 0; row < numRows; row++) {
@@ -84,7 +100,7 @@ Scenes.prototype.render = function() {
             ctx.font = lifeBar.font;
             ctx.fillText(lifeBar.title, lifeBar.xCounter, lifeBar.yCounter);
             for (var heart = 0; heart < lifeBar.total*20; heart+=20) {
-           ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
+            ctx.drawImage(Resources.get('images/Heart.png'), lifeBar.xCounter + 75 + heart, lifeBar.yCounter - 22, 20, 30);
            }
            // ctx.fillStyle = 'red';
            //  ctx.fillRect(0, 86, 20, 30);
@@ -201,7 +217,7 @@ Scenes.prototype.render = function() {
 
 
           //}
-           
+           if(pieceScenes.order <= 9) {
             if(pieceScenes.order >= 1) {
               console.log(houseParts[pieceScenes.order-1]);
               ctx.drawImage(Resources.get(houseParts[pieceScenes.order - 1]),  xPosHousePiece[pieceScenes.order - 1], yPosHousePiece[pieceScenes.order - 1]);
@@ -209,21 +225,15 @@ Scenes.prototype.render = function() {
 
               
             }
-            // if(pieceScenes.order === 5) {
-            //   //console.log(houseParts[0]);
-            //   ctx.drawImage(Resources.get(houseParts[1]),  xPosHousePiece[1], yPosHousePiece[1]);
-            //   // console.log(yPosHousePiece[1]);
-            //   player.checkCollision(1);
-              
-            // }
-            // if(pieceScenes.order === 6) {
-            //   //console.log(houseParts[0]);
-            //   ctx.drawImage(Resources.get(houseParts[2]),  xPosHousePiece[2], yPosHousePiece[2]);
-            //   // console.log(yPosHousePiece[1]);
-            //   player.checkCollision(2);
-              
-            //}
-
+           }
+           if(pieceScenes.order > 8) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle ='white';
+            ctx.fillText('You Win', canvas.width/2-50, canvas.height/2);
+           }
+            
+             player.checkLife();
              scene.checkEdgeCollision();
              //console.log(player.x + ', ' + player.y);
 
@@ -300,6 +310,7 @@ Enemy.prototype.checkCollision = function(){
       if(scene.order === 2){
         if(((this.x+30) >= scene.xMove && this.x <= (scene.xMove+40) /*&& (this.y >= scene.yMove && this.y <= (scene.yMove+40))*/) ) {
           scene.xMove = this.x;
+          
 
         }
 
@@ -308,6 +319,7 @@ Enemy.prototype.checkCollision = function(){
         if(((this.x+30) >= player.x && this.x <= (player.x+40)) && (this.y >= player.y && this.y <= (player.y+40))) {
           lifeBar.item++;
           console.log(lifeBar.total);
+          player.life--;
           player.x = playerStartX;
           player.y = playerStartY;
         }
@@ -344,11 +356,16 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-  if(scene.order === 1 ) {
+  if(player.life > 0) {
+   if(pieceScenes.order <= 8){
+    if(scene.order === 1 ) {
 
+     }
+    if(scene.order >= 2) {
+      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+   }
   }
-  if(scene.order >= 2)
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Now write your own player class
@@ -362,6 +379,16 @@ var Player = function(x,y, life) {
     this.sprite = 'images/char-boy.png';
     this.life = life;
     this.piecesCollected = 0;
+};
+
+Player.prototype.checkLife = function () {
+if(player.life <= 0){
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0,0,canvas.width, canvas.height);
+  ctx.fillStyle ='white';
+  ctx.fillText('You Lose', canvas.width/2-50, canvas.height/2);
+}
+
 };
 
 Player.prototype.checkCollision = function (num) {
